@@ -23,13 +23,14 @@ end
 
 class String
   def palindrome?
-    self == self.reverse        # FIXME: insert hw1 solution
+    ch = self.gsub(/[^\w]+/, '').downcase;
+    ch == ch.reverse
   end
 end
 
 module Enumerable
   def palindrome?
-    self == self.reverse
+    self.entries == self.entries.reverse
   end
 end
 
@@ -43,8 +44,8 @@ test { |x| yield x+1 }
 
 puts (10 + 1).euros.in :yen
 
-puts [3,4,3,4].palindrome?
-puts 'abcba'.palindrome?
+puts [3,4,3].palindrome?
+puts "Rac~~~Ec:A!r".palindrome?
 
 
 
