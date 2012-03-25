@@ -35,7 +35,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   #And  I uncheck "ratings_NC-17"
 
   Given I check the following ratings: PG, R
-  And   I uncheck the following ratings: G, PG-13, NC-17
+  And   I uncheck the following ratings: G, PG-13
   When  I press "ratings_submit"
   Then  I should see "The Terminator"
   And   I should see "When Harry Met Sally"
@@ -49,11 +49,11 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   And   I should not see "Chicken Run"
 
 Scenario: no ratings selected
-  Given I uncheck the following ratings: PG, R, G, PG-13, NC-17
+  Given I uncheck the following ratings: PG, R, G, PG-13
   When  I press "ratings_submit"
-  Then  I should see none of the movies
+  Then  I should see all of the movies
 
 Scenario: all ratings selected
-  Given I check the following ratings: PG, R, G, PG-13, NC-17
+  Given I check the following ratings: PG, R, G, PG-13
   When  I press "ratings_submit"
   Then  I should see all of the movies

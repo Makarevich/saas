@@ -43,15 +43,22 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #page.body =~ Regexp.new("#{e1}.+#{e2}")
   #puts find("table#movies").text
 
-  count=0
+  pos1 = nil
+  pos2 = nil
 
-  Movie.all.each { count += 1 }
+  #puts all("table#movies > tbody > tr").methods.inspect
+  all("table#movies > tbody > tr").each_with_index do |tr, index|
+    t = tr.first('td').text
+    pos1 = index if t.index(e1) and not pos1
+    pos2 = index if t.index(e2) and not pos2
+  end
 
-  puts "Found #{count} movies"
+  assert pos1, "Movie #{e1} was not found"
+  assert pos2, "Movie #{e2} was not found"
 
-  puts page.body
+  #puts "#{pos1} < #{pos2}"
 
-  assert false
+  assert pos1 < pos2, "Movie #{e1} is not before #{e2}"
 end
 
 # Make it easier to express checking or unchecking several boxes at once
